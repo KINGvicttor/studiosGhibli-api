@@ -1,0 +1,1 @@
+# studiosGhibli-api
