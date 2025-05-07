@@ -1,6 +1,6 @@
 export const Filter = () => {
     return (
-        <section className="w-screen">
+        <section>
             <div className="container mx-auto flex flex-col">
 
 {/* Input de pesquisa*/}
