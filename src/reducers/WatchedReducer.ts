@@ -25,7 +25,7 @@ type removeMovie = {
 
 export type movieActionList = addMovie | removeMovie
 
-export const WatchedReducer = (watchedList: MovieWatched[], movieAction: movieActionList) => {
+export const WatchedReducer = (watchedList: MovieWatched[], movieAction: movieActionList): MovieWatched[] => {
     switch (movieAction.type) {
         case 'add':
             return [...watchedList, {

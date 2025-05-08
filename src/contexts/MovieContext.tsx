@@ -1,12 +1,14 @@
+import { movieActionList, WatchedReducer } from "@/reducers/WatchedReducer";
 import { Movie } from "@/types/Movie";
 import { MovieWatched } from "@/types/MovieWatched";
 import { getFullMovieList } from "@/utils/api";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, useEffect, useReducer, useState } from "react";
 
 type MovieContextType = {
     moviesData: Movie[];
-    movieWatched: MovieWatched[];
-    setMovieWatched: (m: MovieWatched[]) => void;
+    watchedMovieList: MovieWatched[]
+    addWatchedMovie: (i: number, m: any) => void;
+
 }
 
 type Props = {
@@ -17,7 +19,26 @@ export const MovieContext = createContext<MovieContextType | null>(null);
 export const MovieContextProvider = ({ children }: Props) => {
 
     const [moviesData, setMoviesData] = useState<Movie[]>([]);
-    const [movieWatched, setMovieWatched] = useState<MovieWatched[]>([]);
+    const [watchedMovieList, dispatch] = useReducer(WatchedReducer, [])
+
+{/* Função que adiciona filmes marcador como visto no array de filmes vistos */}
+    const addWatchedMovie = (id: number, movie: any) => {
+        dispatch({
+            type: 'add',
+            payload: {
+                id: id,
+                image: movie.image,
+                title: movie.title,
+                original_title_romanised: movie.original_title_romanised,
+                director: movie.director,
+                producer: movie.producer,
+                release_date: movie.release_date,
+                running_time: movie.running_time,
+                description: movie.description,
+                rt_score: movie.rt_score,
+            }
+        })
+    }
 
     useEffect(() => {
         const getMoviesList = getFullMovieList();
@@ -25,7 +46,7 @@ export const MovieContextProvider = ({ children }: Props) => {
     }, [])
 
     return (
-        <MovieContext.Provider value={{ moviesData, movieWatched, setMovieWatched }}>
+        <MovieContext.Provider value={{ moviesData, watchedMovieList, addWatchedMovie}}>
             {children}
         </MovieContext.Provider>
     )
