@@ -1,7 +1,7 @@
 export const Filter = () => {
     return (
         <section>
-            <div className="container mx-auto flex flex-col">
+            <div className="container mx-auto flex flex-col px-26">
 
 {/* Input de pesquisa*/}
                 <div className="w-full h-[40px] flex justify-center items-center">

@@ -1,6 +1,7 @@
 export type Movie = {
     image: string;
     title: string;
+    original_title_romanised: string;
     director: string;
     producer: string;
     release_date: string;

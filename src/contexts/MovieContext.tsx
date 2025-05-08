@@ -1,20 +1,28 @@
-import { createContext, ReactNode, useContext } from "react";
+import { Movie } from "@/types/Movie";
+import { getFullMovieList } from "@/utils/api";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
-type DataContextType = {
-
+type MovieContextType = {
+    moviesData: Movie[];
 }
 
 type Props = {
-    children: ReactNode;
+    children: ReactNode
 }
 
-export const MovieContext = createContext<DataContextType | null>(null);
-export const MovieContextProvider = ({children}:Props) => {
-    return(
-        <MovieContext.Provider value={''}>
+export const MovieContext = createContext<MovieContextType | null>(null);
+export const MovieContextProvider = ({ children }: Props) => {
+
+    const [moviesData, setMoviesData] = useState<Movie[]>([]);
+
+    useEffect(() => {
+        const getMoviesList = getFullMovieList();
+        getMoviesList.then((response) => setMoviesData(response))
+    }, [])
+
+    return (
+        <MovieContext.Provider value={{ moviesData }}>
             {children}
         </MovieContext.Provider>
     )
 }
-
-export const useMovieContext = useContext(MovieContext)

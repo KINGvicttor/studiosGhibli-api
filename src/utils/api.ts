@@ -5,7 +5,7 @@ const url = axios.create({
     baseURL: "https://ghibliapi.vercel.app"
 })
 
-export const getFullMovieList = async () :Promise<Movie | any> => {
-    const res = await url.get('/films');
-    return res.data
+export const getFullMovieList = async (): Promise<Movie[] | any> => {
+    const res = await url.get("/films");
+    return res.data;
 }
