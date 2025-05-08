@@ -1,4 +1,5 @@
 import { MovieContext } from "@/contexts/MovieContext"
+import { Movie } from "@/types/Movie"
 import { useContext } from "react"
 
 
@@ -9,7 +10,7 @@ export const MovieList = () => {
     return (
         <section className="mt-10">
             <div className="container mx-auto h-auto pb-10 px-10 flex justify-center items-center flex-wrap gap-x-10 gap-y-10">
-                {movieCtx?.moviesData.slice(0,8).map((movie, index) => (
+                {movieCtx?.moviesData.slice(0, 8).map((movie, index) => (
                     <div className="w-[302px] h-[911px] rounded-lg hover:shadow-2xl hover:ease-in-out hover:duration-500" key={index}>
 
                         {/* Card image */}
@@ -38,7 +39,7 @@ export const MovieList = () => {
                                 </div>
                             </div>
                             <div className="w-full text-justify mt-2">
-                                <p className="text-sm">{movie.description.substring(0,120)}...</p>
+                                <p className="text-sm">{movie.description.substring(0, 120)}...</p>
                                 <button className="flex items-center text-sm text-gray-600 rounded-lg mt-2 hover:bg-gray-200">
                                     <svg className="w-6 h-6 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m8 10 4 4 4-4" />
@@ -55,11 +56,13 @@ export const MovieList = () => {
                         {/* Card Actions */}
                         <div className="w-full h-[148px] flex flex-col justify-around items-center bg-white rounded-b-lg">
                             <div className="flex justify-center items-center w-[268px] h-[36px] border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
-                                <svg className="w-5 h-5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" strokeWidth="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-                                    <path stroke="currentColor" strokeWidth="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-                                <p className="text-sm ml-2">Mark Watched</p>
+                                <button className="flex cursor-pointer w-full h-full justify-center items-center   ">
+                                    <svg className="w-5 h-5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" strokeWidth="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                                        <path stroke="currentColor" strokeWidth="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                    <p className="text-sm ml-2 pointer-events-none">Mark Watched</p>
+                                </button>
                             </div>
                             <div className="flex justify-center items-center w-[268px] h-[36px] border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
                                 <svg className="w-5 h-5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
