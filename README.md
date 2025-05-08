@@ -1,7 +1,7 @@
 # Funcionalidades
 
 <ul>
-  <li>Listar filmes com as seguintes informações</li>:white_check_mark:
+  <li>Listar filmes com as seguintes informações :white_check_mark:</li>
     <ul>
       <li>Imagem do filme</li>
       <li>Titulo</li>
