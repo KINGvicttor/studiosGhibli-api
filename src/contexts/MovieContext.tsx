@@ -8,6 +8,10 @@ type MovieContextType = {
     moviesData: Movie[];
     watchedMovieList: MovieWatched[]
     addWatchedMovie: (i: number, m: any) => void;
+    showWatched: boolean;
+    setShowWatched: (s: boolean) => void;
+    showMovies: boolean;
+    setShowMovies: (s: boolean) => void;
 
 }
 
@@ -20,6 +24,8 @@ export const MovieContextProvider = ({ children }: Props) => {
 
     const [moviesData, setMoviesData] = useState<Movie[]>([]);
     const [watchedMovieList, dispatch] = useReducer(WatchedReducer, [])
+    const [showMovies, setShowMovies] = useState<boolean>(true);
+    const [showWatched, setShowWatched] = useState<boolean>(false);
 
 {/* Função que adiciona filmes marcador como visto no array de filmes vistos */}
     const addWatchedMovie = (id: number, movie: any) => {
@@ -46,7 +52,7 @@ export const MovieContextProvider = ({ children }: Props) => {
     }, [])
 
     return (
-        <MovieContext.Provider value={{ moviesData, watchedMovieList, addWatchedMovie}}>
+        <MovieContext.Provider value={{ moviesData, watchedMovieList,  showMovies, setShowMovies, showWatched, setShowWatched, addWatchedMovie}}>
             {children}
         </MovieContext.Provider>
     )

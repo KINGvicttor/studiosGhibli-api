@@ -1,9 +1,20 @@
+import { MovieContext } from "@/contexts/MovieContext"
+import { useContext } from "react"
+
 export const Filter = () => {
+
+    const movieCtx = useContext(MovieContext);
+
+    const showWatched = () => {
+        movieCtx?.setShowWatched(true)
+        movieCtx?.setShowMovies(false)
+    }
+
     return (
         <section>
             <div className="container mx-auto flex flex-col px-26">
 
-{/* Input de pesquisa*/}
+                {/* Input de pesquisa*/}
                 <div className="w-full h-[40px] flex justify-center items-center">
                     <svg className="w-6 h-6 mr-[-25px] text-gray-500 z-10 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
@@ -16,7 +27,7 @@ export const Filter = () => {
                         placeholder="Search movies..." />
                 </div>
 
-{/* Filtro incluir pesquisa / drop-menu com filtros diversos */}
+                {/* Filtro incluir pesquisa / drop-menu com filtros diversos */}
                 <div className="w-full h-[40px] mt-6 flex justify-between items-center">
                     <div className="flex items-center h-full">
                         <input
@@ -38,11 +49,11 @@ export const Filter = () => {
                     </div>
                 </div>
 
-{/* Filtrar por visto, favoritos, com anotações ou por nota */}
+                {/* Filtrar por visto, favoritos, com anotações ou por nota */}
                 <div className="w-full h-[40px] flex ">
                     <div className="w-full h-[40px] flex items-center">
                         <p className="text-sm">Filters:</p>
-                        <button className="flex px-3 py-2 ml-8 cursor-pointer rounded-lg hover:bg-gray-100 hover:opacity-50">
+                        <button onClick={() => showWatched()} className="flex px-3 py-2 ml-8 cursor-pointer rounded-lg hover:bg-gray-100 hover:opacity-50">
                             <svg className="w-5 h-5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" strokeWidth="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
                                 <path stroke="currentColor" strokeWidth="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
