@@ -29,7 +29,7 @@
   
   <li>Filtrar os filmes por:</li>
     <ul>
-      <li>Assistido</li>
+      <li>Assistido</li>""
       <li>Favorito</li>
       <li>Com anotação</li>
       <li>Número de estrelas</li>

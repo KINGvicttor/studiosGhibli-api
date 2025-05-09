@@ -1,17 +1,24 @@
-import { movieActionList, WatchedReducer } from "@/reducers/WatchedReducer";
+import { WatchedReducer } from "@/reducers/WatchedReducer";
 import { Movie } from "@/types/Movie";
 import { MovieWatched } from "@/types/MovieWatched";
 import { getFullMovieList } from "@/utils/api";
-import { createContext, Dispatch, ReactNode, useEffect, useReducer, useState } from "react";
+import { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 
 type MovieContextType = {
     moviesData: Movie[];
+
     watchedMovieList: MovieWatched[]
-    addWatchedMovie: (i: number, m: any) => void;
+    addWatchedMovie: (id: number, movie: any) => void;
+    removeWatchedMovie: (id: number) => void;
+
+    watchedLabel: string;
+    setWatchedLabel: (watched: string) => void;
+
+    removeFiltersBtn: () => void;
+    removeFilters: boolean;
+
+    showWatchedBtn: () => void;
     showWatched: boolean;
-    setShowWatched: (s: boolean) => void;
-    showMovies: boolean;
-    setShowMovies: (s: boolean) => void;
 
 }
 
@@ -23,14 +30,34 @@ export const MovieContext = createContext<MovieContextType | null>(null);
 export const MovieContextProvider = ({ children }: Props) => {
 
     const [moviesData, setMoviesData] = useState<Movie[]>([]);
+
+    {/* Reducers */}
     const [watchedMovieList, dispatch] = useReducer(WatchedReducer, [])
-    const [showMovies, setShowMovies] = useState<boolean>(true);
+    
+    {/* Filtros */}
+    const [removeFilters, setRemoveFilters] = useState<boolean>(true);
     const [showWatched, setShowWatched] = useState<boolean>(false);
 
-{/* Função que adiciona filmes marcador como visto no array de filmes vistos */}
+    {/* States para alterar front dos botões */}
+    const [watchedLabel, setWatchedLabel] = useState<string>('Mark Watched')
+
+
+    {/* Remover filtros */}
+    const removeFiltersBtn = () => {
+        setRemoveFilters(true)
+        setShowWatched(false)
+    }
+
+    {/* Mostrar lista de filmes marcados como assistidos */}
+    const showWatchedBtn = () => {
+        setShowWatched(true)
+        setRemoveFilters(false)
+    }
+
+    {/* Funções que adiciona e remove filmes marcador como visto no array de filmes vistos */ }
     const addWatchedMovie = (id: number, movie: any) => {
         dispatch({
-            type: 'add',
+            type: 'addWatched',
             payload: {
                 id: id,
                 image: movie.image,
@@ -41,7 +68,16 @@ export const MovieContextProvider = ({ children }: Props) => {
                 release_date: movie.release_date,
                 running_time: movie.running_time,
                 description: movie.description,
-                rt_score: movie.rt_score,
+                rt_score: movie.rt_score
+            }
+        })
+    }
+
+    const removeWatchedMovie = (id: number) => {
+        dispatch({
+            type: 'removeWatched',
+            payload: {
+                id: id
             }
         })
     }
@@ -52,7 +88,7 @@ export const MovieContextProvider = ({ children }: Props) => {
     }, [])
 
     return (
-        <MovieContext.Provider value={{ moviesData, watchedMovieList,  showMovies, setShowMovies, showWatched, setShowWatched, addWatchedMovie}}>
+        <MovieContext.Provider value={{ moviesData, watchedMovieList, removeFilters, showWatched, watchedLabel, removeFiltersBtn, showWatchedBtn, setWatchedLabel, addWatchedMovie, removeWatchedMovie }}>
             {children}
         </MovieContext.Provider>
     )

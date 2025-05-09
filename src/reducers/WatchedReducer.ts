@@ -1,7 +1,7 @@
 import { MovieWatched } from "@/types/MovieWatched";
 
 type addMovie = {
-    type: 'add',
+    type: 'addWatched',
     payload: {
         id: number;
         image: string;
@@ -17,7 +17,7 @@ type addMovie = {
 }
 
 type removeMovie = {
-    type: 'remove',
+    type: 'removeWatched',
     payload: {
         id: number;
     }
@@ -27,7 +27,7 @@ export type movieActionList = addMovie | removeMovie
 
 export const WatchedReducer = (watchedList: MovieWatched[], movieAction: movieActionList): MovieWatched[] => {
     switch (movieAction.type) {
-        case 'add':
+        case 'addWatched':
             return [...watchedList, {
                 id: movieAction.payload.id,
                 image: movieAction.payload.image,
@@ -38,9 +38,9 @@ export const WatchedReducer = (watchedList: MovieWatched[], movieAction: movieAc
                 release_date: movieAction.payload.release_date,
                 running_time: movieAction.payload.running_time,
                 description: movieAction.payload.description,
-                rt_score: movieAction.payload.rt_score,
+                rt_score: movieAction.payload.rt_score
             }];
-        case 'remove':
+        case 'removeWatched':
             return watchedList.filter(movie => movie.id !== movieAction.payload.id);
         default:
             return watchedList;
