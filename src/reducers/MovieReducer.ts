@@ -23,7 +23,7 @@ type toggleWatched = {
     type: 'toggleWatched',
     payload: {
         id: number;
-        watched: boolean
+        watched: boolean;
     }
 }
 
@@ -37,7 +37,7 @@ type toggleFavorite = {
 
 export type movieActionList = addMovieData | toggleWatched | toggleFavorite
 
-export const MovieReducer = (movieList: Movie[], movieAction: movieActionList): any[] => {
+export const MovieReducer = (movieList: Movie[], movieAction: movieActionList): Movie[] => {
 
     switch (movieAction.type) {
         case 'addMovieData':
@@ -55,24 +55,16 @@ export const MovieReducer = (movieList: Movie[], movieAction: movieActionList): 
                 watched: movieAction.payload.watched,
                 favorite: movieAction.payload.favorite,
                 note: movieAction.payload.note
-            }]
+            }];
 
         case 'toggleWatched':
-            return movieList.map(movie => {
-                if (movie.id === movieAction.payload.id) {
-                    movie.watched = movieAction.payload.watched;
-                }
-                return movieList
-            })
-
+            movieList[movieAction.payload.id].watched = movieAction.payload.watched;
+            return movieList;
+            
         case 'toggleFavorite':
-            return movieList.map(movie => {
-                if (movie.id === movieAction.payload.id) {
-                    movie.favorite = movieAction.payload.favorite;
-                }
-                return movieList
-            })
-
+            movieList[movieAction.payload.id].favorite = movieAction.payload.favorite;
+            return movieList;
+            
         default:
             return movieList;
     }

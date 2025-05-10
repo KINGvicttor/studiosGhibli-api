@@ -11,38 +11,42 @@ export const MovieCard = ({ index, movie }: Props) => {
 
     const movieCtx = useContext(MovieContext)
 
-    const toggleWatchedBtn = (index: number, movie: boolean) => {
+
+
+    {/* Função que altera marcado como visto */ }
+    const toggleWatchedBtn = (index: number) => {
         const btn = document.querySelectorAll("#watchBtn");
 
         if (btn[index].innerHTML === "Mark Watched") {
-            movieCtx?.toggleWatched(index, movie);
+            movieCtx?.toggleWatched(index, true);
             btn[index].innerHTML = "Watched";
             btn[index].classList.remove('border-gray-500', 'hover:bg-gray-200');
             btn[index].classList.add('border-black', 'bg-black', 'text-white', 'hover:bg-black/80');
         } else if (btn[index].innerHTML === "Watched") {
-            movieCtx?.toggleWatched(index, movie);
+            movieCtx?.toggleWatched(index, false);
             btn[index].innerHTML = "Mark Watched";
             btn[index].classList.remove('border-black', 'bg-black', 'text-white', 'hover:bg-black/80');
-            btn[index].classList.remove('border-gray-500', 'hover:bg-gray-200');
+            btn[index].classList.add('border-gray-500', 'hover:bg-gray-200');
         }
     }
 
-    const toggleFavoriteBtn = (index: number, movie: boolean) => {
-        const btn = document.querySelectorAll("#favoriteBtn");
+    {/* Função que altera marcado como favorito */ }
+    const toggleFavoriteBtn = (index: number) => {
+        const btn = document.querySelectorAll("#favoriteBtn")
 
         if (btn[index].innerHTML === "Mark Favorite") {
-            movieCtx?.toggleFavorite(index, movie);
+            movieCtx?.toggleFavorite(index, true);
             btn[index].innerHTML = "Favorite";
             btn[index].classList.remove('border-gray-500', 'hover:bg-gray-200');
-            btn[index].classList.add('border-black', 'bg-black', 'text-white', 'hover:bg-black/80');
-        } else if (btn[index].innerHTML === "Favorite") {
-            movieCtx?.toggleFavorite(index, movie);
+            btn[index].classList.add('border-red-600', 'bg-red-600', 'text-white', 'hover:bg-red-600/80');
+        } else if (btn[index].innerHTML === "Favorite"){
+            movieCtx?.toggleFavorite(index, false);
             btn[index].innerHTML = "Mark Favorite";
-            btn[index].classList.remove('border-black', 'bg-black', 'text-white', 'hover:bg-black/80');
-            btn[index].classList.remove('border-gray-500', 'hover:bg-gray-200');
+            btn[index].classList.remove('border-red-600', 'bg-red-600', 'text-white', 'hover:bg-red-600/80');
+            btn[index].classList.add('border-gray-500', 'hover:bg-gray-200');
         }
     }
-   
+
     return (
         <div className="w-[302px] h-[911px] rounded-lg hover:shadow-2xl hover:ease-in-out hover:duration-500">
 
@@ -89,25 +93,25 @@ export const MovieCard = ({ index, movie }: Props) => {
             {/* Card Actions */}
             <div className="w-full h-[148px] flex flex-col justify-around items-center bg-white rounded-b-lg">
                 <div className="flex justify-center items-center w-[268px] h-[36px] ">
-                    {movie.watched === false &&
-                        <button onClick={() => toggleWatchedBtn(index, movie.watched)} id="watchBtn" className="flex w-full h-full justify-center items-center border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
+                    {!movie.watched &&
+                        <button onClick={() => toggleWatchedBtn(index)} id="watchBtn" className="flex w-full h-full justify-center items-center border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
                             Mark Watched
                         </button>
                     }
                     {movie.watched &&
-                        <button onClick={() => toggleWatchedBtn(index, movie.watched)} id="watchBtn" className="flex w-full h-full justify-center items-center border border-black bg-black text-white rounded-lg cursor-pointer hover:bg-black/80">
+                        <button onClick={() => toggleWatchedBtn(index)} id="watchBtn" className="flex w-full h-full justify-center items-center border border-black bg-black text-white rounded-lg cursor-pointer hover:bg-black/80">
                             Watched
                         </button>
                     }
                 </div>
                 <div className="flex justify-center items-center w-[268px] h-[36px]">
-                    {movie.favorite === false &&
-                        <button onClick={() => toggleFavoriteBtn(index, movie.favorite)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
-                            Mark favorite
+                    {!movie.favorite &&
+                        <button onClick={() => toggleFavoriteBtn(index)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
+                            Mark Favorite
                         </button>
                     }
                     {movie.favorite &&
-                        <button onClick={() => toggleFavoriteBtn(index, movie.favorite)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-red-600 bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-600/80">
+                        <button onClick={() => toggleFavoriteBtn(index)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-red-600 bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-600/80">
                             Favorite
                         </button>
                     }

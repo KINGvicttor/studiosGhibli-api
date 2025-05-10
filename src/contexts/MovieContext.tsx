@@ -4,11 +4,10 @@ import { getFullMovieList } from "@/utils/api";
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 
 type MovieContextType = {
-    moviesData: Movie[];
     movieList: Movie[];
 
-    toggleWatched: (id: number, movie: boolean) => void;
-    toggleFavorite: (id: number, movie: boolean) => void;
+    toggleWatched: (id: number, watched: boolean) => void;
+    toggleFavorite: (id: number, favorited: boolean) => void;
 
     watchedLabel: string;
     setWatchedLabel: (watched: string) => void;
@@ -30,8 +29,6 @@ type Props = {
 
 export const MovieContext = createContext<MovieContextType | null>(null);
 export const MovieContextProvider = ({ children }: Props) => {
-
-    const [moviesData, setMoviesData] = useState<Movie[]>([]);
 
     {/* Reducers */ }
     const [movieList, dispatch] = useReducer(MovieReducer, [])
@@ -64,22 +61,24 @@ export const MovieContextProvider = ({ children }: Props) => {
     }
 
 
-    const toggleWatched = (id: number, movie: boolean) => {
+    {/* Marcar / desmarcar filme como visto */}
+    const toggleWatched = (id: number, watched: boolean) => {
         dispatch({
             type: 'toggleWatched',
             payload: {
                 id: id,
-                watched: true
+                watched: watched
             }
         })
     }
 
-    const toggleFavorite = (id: number, movie: boolean) => {
+    {/* Marcar / desmarcar filme como visto */}
+    const toggleFavorite = (id: number, favorite: boolean) => {
         dispatch({
             type: 'toggleFavorite',
             payload: {
                 id: id,
-                favorite: true,
+                favorite: favorite
             }
         })
     }
@@ -106,10 +105,9 @@ export const MovieContextProvider = ({ children }: Props) => {
                 }
             })
         }))
-        console.log(movieList)
     }, [])
     return (
-        <MovieContext.Provider value={{ moviesData, movieList, removeFilters, showWatched, showFavorite, watchedLabel, toggleWatched, toggleFavorite, removeFiltersBtn, showWatchedBtn, showFavoriteBtn, setWatchedLabel }}>
+        <MovieContext.Provider value={{movieList, removeFilters, showWatched, showFavorite, watchedLabel, toggleWatched, toggleFavorite, removeFiltersBtn, showWatchedBtn, showFavoriteBtn, setWatchedLabel }}>
             {children}
         </MovieContext.Provider>
     )
