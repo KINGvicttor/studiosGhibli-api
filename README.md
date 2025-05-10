@@ -3,18 +3,18 @@
 <ul>
   <li>Listar filmes com as seguintes informações :white_check_mark:</li>
     <ul>
-      <li>Imagem do filme</li>
-      <li>Titulo</li>
-      <li>Ano de lançamento</li>
-      <li>Duração</li>
-      <li>Sinopse</li>
-      <li>Diretor e produtor</li>
-      <li>Nota de avaliação</li>
+      <li>Imagem do filme :white_check_mark:</li>
+      <li>Titulo :white_check_mark:</li>
+      <li>Ano de lançamento :white_check_mark:</li>
+      <li>Duração :white_check_mark:</li>
+      <li>Sinopse :white_check_mark:</li>
+      <li>Diretor e produtor :white_check_mark:</li>
+      <li>Nota de avaliação :white_check_mark:</li>
     </ul>
   
-  <li>Marcar o filme como assistido</li>
+  <li>Marcar o filme como assistido :white_check_mark:</li>
   
-  <li>Marcar o filme como favorito</li>
+  <li>Marcar o filme como favorito :white_check_mark:</li>
   
   <li>Filtrar os filmes por titulo através de um campo de texto</li>
     <ul>
