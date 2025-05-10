@@ -56,7 +56,7 @@ export const Filter = () => {
                                 </svg>
                                 <p className="text-sm ml-1">Watched</p>
                             </button>
-                            <button className="flex px-3 py-2 ml-8 cursor-pointer rounded-lg hover:bg-gray-100 hover:opacity-50">
+                            <button onClick={() => movieCtx?.showFavoriteBtn()} className="flex px-3 py-2 ml-8 cursor-pointer rounded-lg hover:bg-gray-100 hover:opacity-50">
                                 <svg className="w-5 h-5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
                                 </svg>

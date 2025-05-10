@@ -1,4 +1,5 @@
 export type Movie = {
+    id: number;
     image: string;
     title: string;
     original_title_romanised: string;
@@ -8,4 +9,7 @@ export type Movie = {
     running_time: string;
     description: string;
     rt_score: string;
+    watched: boolean;
+    favorite: boolean;
+    note: string;
 }

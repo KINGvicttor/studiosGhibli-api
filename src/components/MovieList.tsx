@@ -1,5 +1,5 @@
 import { MovieContext } from "@/contexts/MovieContext"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { MovieCard } from "./MovieCard"
 
 
@@ -13,22 +13,23 @@ export const MovieList = () => {
 
                 {/* Lista com todos os filmes sem filtro */}
                 {movieCtx?.removeFilters &&
-                    movieCtx?.moviesData.slice(0, 8).map((movie, index) => (
-                        <MovieCard key={index} id={index} movie={movie} watched={false} favorite={false}/>
+                    movieCtx?.movieList.slice(0, 8).map((movie, index) => (
+                        <MovieCard key={index} index={index} movie={movie} />
                     ))
                 }
 
-                {/* Lista de filmes marcados como assistido */}
-                {movieCtx?.showWatched && movieCtx?.watchedMovieList.length > 0 &&
-                    movieCtx?.watchedMovieList.slice(0, 8).map((movie, index) => (
-                        <MovieCard key={index} id={index} movie={movie} watched={true} favorite={false}/>
+                {/* Lista com filmes marcados como visto */}
+                {movieCtx?.showWatched &&
+                    movieCtx?.movieList.filter((movie) => movie.watched === true).slice(0,8).map((movie, index) => (
+                        <MovieCard key={index} index={index} movie={movie}/>
                     ))
                 }
-                {movieCtx?.showWatched && movieCtx?.watchedMovieList.length === 0 &&
-                    <div className="container mx-auto flex flex-col items-center h-[calc(100vh-375px)] py-10">
-                        <p className="text-lg text-gray-500">No movies match the selected filters</p>
-                        <button onClick={() => movieCtx?.removeFiltersBtn()} className="bg-white border border-gray-500 px-3 py-2 rounded-lg mt-4 cursor-pointer hover:bg-gray-200">Clear All Filters</button>
-                    </div>
+
+                {/* Lista com filmes marcados como favoritos */}
+                {movieCtx?.showFavorite &&
+                    movieCtx?.movieList.filter((movie) => movie.favorite === true).slice(0,8).map((movie, index) => (
+                        <MovieCard key={index} index={index} movie={movie}/>
+                    ))
                 }
             </div>
         </section >

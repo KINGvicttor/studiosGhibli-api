@@ -1,15 +1,14 @@
-import { WatchedReducer } from "@/reducers/WatchedReducer";
+import { MovieReducer } from "@/reducers/MovieReducer";
 import { Movie } from "@/types/Movie";
-import { MovieWatched } from "@/types/MovieWatched";
 import { getFullMovieList } from "@/utils/api";
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 
 type MovieContextType = {
     moviesData: Movie[];
+    movieList: Movie[];
 
-    watchedMovieList: MovieWatched[]
-    addWatchedMovie: (id: number, movie: any) => void;
-    removeWatchedMovie: (id: number) => void;
+    toggleWatched: (id: number, movie: boolean) => void;
+    toggleFavorite: (id: number, movie: boolean) => void;
 
     watchedLabel: string;
     setWatchedLabel: (watched: string) => void;
@@ -19,6 +18,9 @@ type MovieContextType = {
 
     showWatchedBtn: () => void;
     showWatched: boolean;
+
+    showFavoriteBtn: () => void;
+    showFavorite: boolean;
 
 }
 
@@ -31,64 +33,83 @@ export const MovieContextProvider = ({ children }: Props) => {
 
     const [moviesData, setMoviesData] = useState<Movie[]>([]);
 
-    {/* Reducers */}
-    const [watchedMovieList, dispatch] = useReducer(WatchedReducer, [])
-    
-    {/* Filtros */}
+    {/* Reducers */ }
+    const [movieList, dispatch] = useReducer(MovieReducer, [])
+
+    {/* Filtros */ }
     const [removeFilters, setRemoveFilters] = useState<boolean>(true);
     const [showWatched, setShowWatched] = useState<boolean>(false);
+    const [showFavorite, setShowFavorite] = useState<boolean>(false);
 
-    {/* States para alterar front dos botões */}
+    {/* States para alterar front dos botões */ }
     const [watchedLabel, setWatchedLabel] = useState<string>('Mark Watched')
 
 
-    {/* Remover filtros */}
+    {/* Remover filtros */ }
     const removeFiltersBtn = () => {
         setRemoveFilters(true)
         setShowWatched(false)
     }
 
-    {/* Mostrar lista de filmes marcados como assistidos */}
+    {/* Mostrar lista de filmes marcados como assistidos */ }
     const showWatchedBtn = () => {
         setShowWatched(true)
         setRemoveFilters(false)
     }
 
-    {/* Funções que adiciona e remove filmes marcador como visto no array de filmes vistos */ }
-    const addWatchedMovie = (id: number, movie: any) => {
+    const showFavoriteBtn = () => {
+        setShowFavorite(true)
+        setShowWatched(false)
+        setRemoveFilters(false)
+    }
+
+
+    const toggleWatched = (id: number, movie: boolean) => {
         dispatch({
-            type: 'addWatched',
+            type: 'toggleWatched',
             payload: {
                 id: id,
-                image: movie.image,
-                title: movie.title,
-                original_title_romanised: movie.original_title_romanised,
-                director: movie.director,
-                producer: movie.producer,
-                release_date: movie.release_date,
-                running_time: movie.running_time,
-                description: movie.description,
-                rt_score: movie.rt_score
+                watched: true
             }
         })
     }
 
-    const removeWatchedMovie = (id: number) => {
+    const toggleFavorite = (id: number, movie: boolean) => {
         dispatch({
-            type: 'removeWatched',
+            type: 'toggleFavorite',
             payload: {
-                id: id
+                id: id,
+                favorite: true,
             }
         })
     }
 
+    {/* Solicitando dados da api */ }
     useEffect(() => {
         const getMoviesList = getFullMovieList();
-        getMoviesList.then((response) => setMoviesData(response))
+        getMoviesList.then((response) => response.map((item: Movie) => {
+            dispatch({
+                type:'addMovieData',
+                payload: {
+                    description: item.description,
+                    director: item.director,
+                    favorite: false,
+                    image: item.image,
+                    note: 'empty',
+                    original_title_romanised: item.original_title_romanised,
+                    producer: item.producer,
+                    release_date: item.release_date,
+                    rt_score: item.rt_score,
+                    running_time: item.running_time,
+                    title: item.title,
+                    watched: false
+                }
+            })
+        }))
+        console.log(movieList)
     }, [])
-
     return (
-        <MovieContext.Provider value={{ moviesData, watchedMovieList, removeFilters, showWatched, watchedLabel, removeFiltersBtn, showWatchedBtn, setWatchedLabel, addWatchedMovie, removeWatchedMovie }}>
+        <MovieContext.Provider value={{ moviesData, movieList, removeFilters, showWatched, showFavorite, watchedLabel, toggleWatched, toggleFavorite, removeFiltersBtn, showWatchedBtn, showFavoriteBtn, setWatchedLabel }}>
             {children}
         </MovieContext.Provider>
     )
