@@ -70,6 +70,7 @@ Clone o repositório com o git, após clonar execute o comando <b>npm run dev</b
   <li>Separação clara de resposabilidades (componentes, serviços de api :white_check_mark:</li>
   <li>Utilizar biblioteca de estilo (tailwind) :white_check_mark:</li>
   <li>Utilizar solução para gerenciar estado assincrono (axios) :white_check_mark:</li>
+  <li>Toast messages :white_check_mark:</li>
 </ul>
 
 # Prints do projeto
