@@ -16,7 +16,7 @@
   
   <li>Marcar o filme como favorito :white_check_mark:</li>
   
-  <li>Filtrar os filmes por titulo através de um campo de texto</li>
+  <li>Filtrar os filmes por titulo através de um campo de texto :white_check_mark: (Funciona ao digitar o nome completo do filme)</li>
     <ul>
       <li>
         Ao selecionar a opção "incluir sinopse na busca**',** além de filtrar os filmes, também deve destacar o texto buscado na sinopse com alguma cor.
