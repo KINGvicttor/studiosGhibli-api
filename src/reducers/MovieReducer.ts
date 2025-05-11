@@ -74,7 +74,7 @@ export const MovieReducer = (movieList: Movie[], movieAction: movieActionList): 
             return movieList;
             
         case 'editNote':
-            movieList[movieAction.payload.id].note = movieAction.payload.note
+            movieList[movieAction.payload.id].note = movieAction.payload.note;
             return movieList;
             
         default:

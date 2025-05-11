@@ -87,7 +87,7 @@ export const MovieContextProvider = ({ children }: Props) => {
         })
     }
 
-    {/* Marcar / desmarcar filme como visto */}
+    {/* Marcar / desmarcar filme como Favorito */}
     const toggleFavorite = (id: number, favorite: boolean) => {
         dispatch({
             type: 'toggleFavorite',
