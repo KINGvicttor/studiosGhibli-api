@@ -71,3 +71,10 @@ Clone o repositório com o git, após clonar execute o comando <b>npm run dev</b
   <li>Utilizar biblioteca de estilo :white_check_mark:</li>
   <li>Utilizar solução para gerenciar estado assincrono (axios, tanstack query) :white_check_mark:</li>
 </ul>
+
+# Prints do projeto
+![studiosghlibi1](https://github.com/user-attachments/assets/c56bfedb-d468-45e8-b0a5-35446e110ef5)
+![studiosghlibi2](https://github.com/user-attachments/assets/52e7970e-0036-43f0-833f-5c1b1d209b4c)
+![studiosghlibi3](https://github.com/user-attachments/assets/981018d4-4d03-4505-b9aa-00b39dfde6bc)
+![studiosghlibi4](https://github.com/user-attachments/assets/723e803a-4ae4-4192-a9fb-00eee9b0dfa0)
+
