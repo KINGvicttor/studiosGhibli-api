@@ -1,6 +1,7 @@
 import { MovieReducer } from "@/reducers/MovieReducer";
 import { Movie } from "@/types/Movie";
 import { getFullMovieList } from "@/utils/api";
+import { ToastContainer, toast } from "react-toastify";
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 
 type MovieContextType = {
@@ -10,18 +11,17 @@ type MovieContextType = {
     setSearchInput: (s: string) => void;
     toggleWatched: (id: number, watched: boolean) => void;
     toggleFavorite: (id: number, favorited: boolean) => void;
-
-    watchedLabel: string;
-    setWatchedLabel: (watched: string) => void;
+    editNote: (id: number, note: any) => void;
 
     removeFiltersBtn: () => void;
     removeFilters: boolean;
 
     showWatchedBtn: () => void;
     showWatched: boolean;
-
     showFavoriteBtn: () => void;
     showFavorite: boolean;
+    showNotedBtn: () => void
+    showNoted: boolean;
 
 }
 
@@ -32,7 +32,7 @@ type Props = {
 export const MovieContext = createContext<MovieContextType | null>(null);
 export const MovieContextProvider = ({ children }: Props) => {
 
-    {/* Reducers */ }
+    {/* Reducer */ }
     const [movieList, dispatch] = useReducer(MovieReducer, [])
 
     {/* Filtros */ }
@@ -40,26 +40,37 @@ export const MovieContextProvider = ({ children }: Props) => {
     const [removeFilters, setRemoveFilters] = useState<boolean>(true);
     const [showWatched, setShowWatched] = useState<boolean>(false);
     const [showFavorite, setShowFavorite] = useState<boolean>(false);
-
-    {/* States para alterar front dos botões */ }
-    const [watchedLabel, setWatchedLabel] = useState<string>('Mark Watched')
+    const [showNoted, setShowNoted] = useState<boolean>(false);
 
 
     {/* Remover filtros */ }
     const removeFiltersBtn = () => {
         setRemoveFilters(true)
         setShowWatched(false)
+        setShowFavorite(false)
+        setShowNoted(false)
     }
 
     {/* Mostrar lista de filmes marcados como assistidos */ }
     const showWatchedBtn = () => {
         setShowWatched(true)
         setShowFavorite(false)
+        setShowNoted(false)
         setRemoveFilters(false)
     }
 
+    {/* Mostrar lista de filmes marcados como favoritos */ }
     const showFavoriteBtn = () => {
         setShowFavorite(true)
+        setShowWatched(false)
+        setRemoveFilters(false)
+        setShowNoted(false)
+    }
+
+    {/* Mostrar lista de filmes marcados como notas */ }
+    const showNotedBtn = () => {
+        setShowNoted(true)
+        setShowFavorite(false)
         setShowWatched(false)
         setRemoveFilters(false)
     }
@@ -87,7 +98,18 @@ export const MovieContextProvider = ({ children }: Props) => {
         })
     }
 
-    {/* Solicitando dados da api */ }
+    {/* Editar notas */}
+    const editNote = (id: number, note: any) => {
+        dispatch({
+            type: 'editNote',
+            payload: {
+                id: id,
+                note: note
+            }
+        })
+    }
+
+    {/* Solicitando dados da api e inserindo no array do reducer*/ }
     useEffect(() => {
         const getMoviesList = getFullMovieList();
         getMoviesList.then((response) => response.map((item: Movie) => {
@@ -98,7 +120,7 @@ export const MovieContextProvider = ({ children }: Props) => {
                     director: item.director,
                     favorite: false,
                     image: item.image,
-                    note: 'empty',
+                    note: '',
                     original_title_romanised: item.original_title_romanised,
                     producer: item.producer,
                     release_date: item.release_date,
@@ -111,7 +133,7 @@ export const MovieContextProvider = ({ children }: Props) => {
         }))
     }, [])
     return (
-        <MovieContext.Provider value={{movieList, searchInput, removeFilters, showWatched, showFavorite, watchedLabel, setSearchInput, toggleWatched, toggleFavorite, removeFiltersBtn, showWatchedBtn, showFavoriteBtn, setWatchedLabel }}>
+        <MovieContext.Provider value={{movieList, searchInput, removeFilters, showWatched, showFavorite, showNoted, setSearchInput, toggleWatched, toggleFavorite, editNote, removeFiltersBtn, showWatchedBtn, showFavoriteBtn, showNotedBtn }}>
             {children}
         </MovieContext.Provider>
     )

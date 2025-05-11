@@ -35,7 +35,15 @@ type toggleFavorite = {
     }
 }
 
-export type movieActionList = addMovieData | toggleWatched | toggleFavorite
+type editNote = {
+    type: 'editNote',
+    payload: {
+        id: number,
+        note: string
+    }
+}
+
+export type movieActionList = addMovieData | toggleWatched | toggleFavorite | editNote
 
 export const MovieReducer = (movieList: Movie[], movieAction: movieActionList): Movie[] => {
 
@@ -63,6 +71,10 @@ export const MovieReducer = (movieList: Movie[], movieAction: movieActionList): 
             
         case 'toggleFavorite':
             movieList[movieAction.payload.id].favorite = movieAction.payload.favorite;
+            return movieList;
+            
+        case 'editNote':
+            movieList[movieAction.payload.id].note = movieAction.payload.note
             return movieList;
             
         default:

@@ -1,6 +1,7 @@
 import { MovieContext } from "@/contexts/MovieContext";
 import { Movie } from "@/types/Movie";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 
 type Props = {
     index: number
@@ -11,8 +12,6 @@ export const MovieCard = ({ index, movie }: Props) => {
 
     const movieCtx = useContext(MovieContext)
 
-
-
     {/* Função que altera marcado como visto */ }
     const toggleWatchedBtn = (index: number) => {
         const btn = document.querySelectorAll("#watchBtn");
@@ -22,11 +21,13 @@ export const MovieCard = ({ index, movie }: Props) => {
             btn[index].innerHTML = "Watched";
             btn[index].classList.remove('border-gray-500', 'hover:bg-gray-200');
             btn[index].classList.add('border-black', 'bg-black', 'text-white', 'hover:bg-black/80');
+            toast("Marked as Watched!");
         } else if (btn[index].innerHTML === "Watched") {
             movieCtx?.toggleWatched(index, false);
             btn[index].innerHTML = "Mark Watched";
             btn[index].classList.remove('border-black', 'bg-black', 'text-white', 'hover:bg-black/80');
             btn[index].classList.add('border-gray-500', 'hover:bg-gray-200');
+            toast("Unmarked as Watched!");
         }
     }
 
@@ -39,12 +40,25 @@ export const MovieCard = ({ index, movie }: Props) => {
             btn[index].innerHTML = "Favorite";
             btn[index].classList.remove('border-gray-500', 'hover:bg-gray-200');
             btn[index].classList.add('border-red-600', 'bg-red-600', 'text-white', 'hover:bg-red-600/80');
-        } else if (btn[index].innerHTML === "Favorite"){
+            toast("Marked as Favorite :)");
+        } else if (btn[index].innerHTML === "Favorite") {
             movieCtx?.toggleFavorite(index, false);
             btn[index].innerHTML = "Mark Favorite";
             btn[index].classList.remove('border-red-600', 'bg-red-600', 'text-white', 'hover:bg-red-600/80');
             btn[index].classList.add('border-gray-500', 'hover:bg-gray-200');
+            toast("Unmarked as Favorite :(");
         }
+    }
+
+    {/* Função para editar notas */ }
+    const editNoteBtn = (index: number) => {
+
+        const note = movieCtx?.movieList[index].note
+        const newNote = window.prompt("Type your note:", note )
+
+        movieCtx?.editNote(index, newNote)
+
+        toast('Notes changed!')
     }
 
     return (
@@ -88,6 +102,10 @@ export const MovieCard = ({ index, movie }: Props) => {
                     <p className="text-sm mt-2 text-gray-600">Director: {movie.director}</p>
                     <p className="text-sm mt-2 text-gray-600">Producer: {movie.producer}</p>
                 </div>
+                <div className="bg-blue-200 w-full h-[50px] mt-2 flex flex-col justify-start items-start">
+                    <p className="text-md text-blue-400 ml-2">Your notes:</p>
+                    <p className="text-sm text-blue-400 ml-2">{movie.note}</p>
+                </div>
             </div>
 
             {/* Card Actions */}
@@ -117,7 +135,9 @@ export const MovieCard = ({ index, movie }: Props) => {
                     }
                 </div>
                 <div className="flex justify-center items-center w-[268px] h-[36px]">
-                    Add Notes
+                    <button onClick={() => editNoteBtn(index)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
+                        Edit notes
+                    </button>
                 </div>
             </div>
         </div >

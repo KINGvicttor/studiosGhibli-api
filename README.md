@@ -29,8 +29,8 @@
   
   <li>Filtrar os filmes por:</li>
     <ul>
-      <li>Assistido</li>""
-      <li>Favorito</li>
+      <li>Assistido :white_check_mark:</li>
+      <li>Favorito :white_check_mark:</li>
       <li>Com anotação</li>
       <li>Número de estrelas</li>
     </ul>

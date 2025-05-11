@@ -4,6 +4,7 @@ import { Filter } from "@/components/Filter";
 import { Header } from "@/components/Header";
 import { MovieList } from "@/components/MovieList";
 import { MovieContextProvider } from "@/contexts/MovieContext";
+import { ToastContainer } from "react-toastify";
 
 const Page = () => {
   return (
@@ -12,6 +13,7 @@ const Page = () => {
         <Header />
         <Filter />
         <MovieList />
+        <ToastContainer />
       </div>
     </MovieContextProvider>
   )
