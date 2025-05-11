@@ -1,3 +1,21 @@
+# Instruções de instação e execução:
+
+Clone o repositório com o git, após clonar execute o comando <b>npm run dev</b>  no terminal.
+
+# Tecnologias utilizadas
+
+<ul>
+  <li>React (useState, useReducer, useContext)</li>
+  <li>TypeScript</li>
+  <li>JavaScript</li>
+  <li>Tailwind</li>
+  <li>Axios</li>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>Git</li>
+  <li>GitHub</li>
+</ul>
+
 # Funcionalidades
 
 <ul>
@@ -42,4 +60,14 @@
       <li>Avaliação pessoal</li>
       <li>Nota de avaliação</li>
     </ul>
+</ul>
+
+# Desejáveis
+
+<ul>
+  <li>Responsividade :white_check_mark:</li>
+  <li>Utilizar typescript :white_check_mark:</li>
+  <li>Separação clara de resposabilidades (componentes, serviços de api :white_check_mark:</li>
+  <li>Utilizar biblioteca de estilo :white_check_mark:</li>
+  <li>Utilizar solução para gerenciar estado assincrono (axios, tanstack query) :white_check_mark:</li>
 </ul>
