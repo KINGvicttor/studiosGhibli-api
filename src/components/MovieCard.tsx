@@ -54,7 +54,7 @@ export const MovieCard = ({ index, movie }: Props) => {
     const editNoteBtn = (index: number) => {
 
         const note = movieCtx?.movieList[index].note
-        const newNote = window.prompt("Type your note:", note )
+        const newNote = window.prompt("Type your note:", note)
 
         movieCtx?.editNote(index, newNote)
 
@@ -135,9 +135,16 @@ export const MovieCard = ({ index, movie }: Props) => {
                     }
                 </div>
                 <div className="flex justify-center items-center w-[268px] h-[36px]">
-                    <button onClick={() => editNoteBtn(index)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
-                        Edit notes
-                    </button>
+                    {movie.note === '' &&
+                        <button onClick={() => editNoteBtn(index)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200">
+                            Edit notes
+                        </button>
+                    }
+                    {movie.note != '' &&
+                        <button onClick={() => editNoteBtn(index)} id="favoriteBtn" className="flex w-full h-full justify-center items-center border border-blue-600 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-600/80">
+                            Edit notes
+                        </button>
+                    }
                 </div>
             </div>
         </div >
