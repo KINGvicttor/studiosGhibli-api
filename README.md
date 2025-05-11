@@ -47,10 +47,10 @@ Clone o repositório com o git, após clonar execute o comando <b>npm run dev</b
   
   <li>Filtrar os filmes por:</li>
     <ul>
-      <li>Assistido</li>""
-      <li>Favorito</li>
-      <li>Com anotação</li>
-      <li>Número de estrelas</li>
+      <li>Assistido :white_check_mark:</li>
+      <li>Favorito :white_check_mark:</li>
+      <li>Com anotação :white_check_mark:</li>
+      <li>Número de estrelas </li>
     </ul>
     
   <li>Ordenar filmes (de forma crescente e decrescente) por:</li>
