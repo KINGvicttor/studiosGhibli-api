@@ -6,6 +6,8 @@ import { createContext, ReactNode, useEffect, useReducer, useState } from "react
 type MovieContextType = {
     movieList: Movie[];
 
+    searchInput: string;
+    setSearchInput: (s: string) => void;
     toggleWatched: (id: number, watched: boolean) => void;
     toggleFavorite: (id: number, favorited: boolean) => void;
 
@@ -34,6 +36,7 @@ export const MovieContextProvider = ({ children }: Props) => {
     const [movieList, dispatch] = useReducer(MovieReducer, [])
 
     {/* Filtros */ }
+    const [searchInput, setSearchInput] = useState<string>('')
     const [removeFilters, setRemoveFilters] = useState<boolean>(true);
     const [showWatched, setShowWatched] = useState<boolean>(false);
     const [showFavorite, setShowFavorite] = useState<boolean>(false);
@@ -51,6 +54,7 @@ export const MovieContextProvider = ({ children }: Props) => {
     {/* Mostrar lista de filmes marcados como assistidos */ }
     const showWatchedBtn = () => {
         setShowWatched(true)
+        setShowFavorite(false)
         setRemoveFilters(false)
     }
 
@@ -107,7 +111,7 @@ export const MovieContextProvider = ({ children }: Props) => {
         }))
     }, [])
     return (
-        <MovieContext.Provider value={{movieList, removeFilters, showWatched, showFavorite, watchedLabel, toggleWatched, toggleFavorite, removeFiltersBtn, showWatchedBtn, showFavoriteBtn, setWatchedLabel }}>
+        <MovieContext.Provider value={{movieList, searchInput, removeFilters, showWatched, showFavorite, watchedLabel, setSearchInput, toggleWatched, toggleFavorite, removeFiltersBtn, showWatchedBtn, showFavoriteBtn, setWatchedLabel }}>
             {children}
         </MovieContext.Provider>
     )

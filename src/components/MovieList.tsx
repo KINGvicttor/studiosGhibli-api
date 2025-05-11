@@ -12,8 +12,14 @@ export const MovieList = () => {
             <div className="container mx-auto h-auto pb-10 px-25 flex justify-start items-center flex-wrap gap-x-10 gap-y-10">
 
                 {/* Lista com todos os filmes sem filtro */}
-                {movieCtx?.removeFilters &&
+                {movieCtx?.removeFilters && movieCtx?.searchInput === '' &&
                     movieCtx?.movieList.slice(0, 8).map((movie, index) => (
+                        <MovieCard key={index} index={index} movie={movie} />
+                    ))
+                }
+
+                {movieCtx?.searchInput != '' &&
+                    movieCtx?.movieList.filter((movie) => movie.title === movieCtx?.searchInput).map((movie, index) => (
                         <MovieCard key={index} index={index} movie={movie} />
                     ))
                 }
@@ -41,7 +47,7 @@ export const MovieList = () => {
                 }
 
                 {/* Div para quando não houver filmes com os filtros escolhidos */}
-                {!movieCtx?.removeFilters && movieCtx?.showWatched &&  movieCtx?.movieList.filter((movie) => movie.watched === true).length == 0 &&
+                {!movieCtx?.removeFilters && movieCtx?.showWatched && movieCtx?.movieList.filter((movie) => movie.watched === true).length == 0 &&
                     <div className="container mx-auto flex flex-col items-center py-20 h-[570px]">
                         <p className="text-lg text-gray-500">No movies match the selected filters</p>
                         <button onClick={() => movieCtx?.removeFiltersBtn()} className="mt-4 bg-white border border-gray-500 px-2 cursor-pointer rounded-lg hover:bg-gray-200">Clear all filters</button>

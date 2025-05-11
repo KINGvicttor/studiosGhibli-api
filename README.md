@@ -19,7 +19,7 @@
   <li>Filtrar os filmes por titulo através de um campo de texto</li>
     <ul>
       <li>
-        Ao selecionar a opção "incluir sinopse na busca**',** além de filtrar os filmes, também deve destacar o texto                buscado na sinopse com alguma cor.
+        Ao selecionar a opção "incluir sinopse na busca**',** além de filtrar os filmes, também deve destacar o texto buscado na sinopse com alguma cor.
       </li>
     </ul>
     

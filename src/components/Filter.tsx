@@ -17,8 +17,8 @@ export const Filter = () => {
                     <input
                         className="bg-white w-full h-full outline-black border border-gray-500 rounded-lg px-10"
                         type="search"
-                        name=""
-                        id=""
+                        value={movieCtx?.searchInput}
+                        onChange={(e) => movieCtx?.setSearchInput(e.target.value)}
                         placeholder="Search movies..." />
                 </div>
 
